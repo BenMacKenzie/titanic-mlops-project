@@ -1,7 +1,7 @@
-# This GitHub workflow validates Bundle config (ML resource config and more)
-# defined under titanic_mlops_project/resources/*
-# and titanic_mlops_project/databricks.yml, when PRs are merged into the main branch
-name: Bundle validation for titanic-mlops-project
+ This GitHub workflow validates Bundle config (ML resource config and more)
+# defined under titanic_2/resources/*
+# and titanic_2/databricks.yml, when PRs are merged into the main branch
+name: Bundle validation for titanic-2
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./titanic_mlops_project/
+    working-directory: ./titanic_2/
 
 env:
   STAGING_ARM_TENANT_ID: ${{ secrets.STAGING_AZURE_SP_TENANT_ID }}
@@ -19,10 +19,9 @@ env:
   PROD_ARM_CLIENT_ID: ${{ secrets.PROD_AZURE_SP_APPLICATION_ID }}
   PROD_ARM_CLIENT_SECRET: ${{ secrets.PROD_AZURE_SP_CLIENT_SECRET }}
 
-
 jobs:
   staging:
-    concurrency: titanic-mlops-project-staging-bundle-job
+    concurrency: titanic-2-staging-bundle-job
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
@@ -60,8 +59,9 @@ jobs:
               repo: context.repo.repo,
               body: output
             })
-  production:
-    concurrency: titanic-mlops-project-prod-bundle-job
+
+  prod:
+    concurrency: titanic-2-prod-bundle-job
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
@@ -86,15 +86,16 @@ jobs:
             const fileContents = fs.readFileSync('validate_output.txt', 'utf8');
             const output = `#### Bundle Prod Config Validated 🖌
             <details><summary>Prod Validation Output</summary>
+
             \`\`\`\n
             ${fileContents}
             \`\`\`
+
             </details>`
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: output
             })
-
-
