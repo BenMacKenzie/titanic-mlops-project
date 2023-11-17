@@ -20,7 +20,7 @@ env:
   ARM_CLIENT_SECRET: ${{ secrets.PROD_AZURE_SP_CLIENT_SECRET }}
 
 jobs:
-  prod:
+  production:
     concurrency: titanic-mlops-project-prod-bundle-job
     runs-on: ubuntu-22.04
     steps:
@@ -29,8 +29,8 @@ jobs:
       - name: Validate Bundle For Prod
         id: validate
         run: |
-          databricks bundle validate -t prod
+          databricks bundle validate -t production
       - name: Deploy Bundle to Prod
         id: deploy
         run: |
-          databricks bundle deploy -t prod
+          databricks bundle deploy -t production
