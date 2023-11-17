@@ -108,6 +108,7 @@ train_df = train_df.toPandas()
 train_df = train_df.dropna()
 target = train_df.pop('Survived')
 X_train, X_test, y_train, y_test = train_test_split(train_df, target, train_size=0.8)
+##
 
 # COMMAND ----------
 
