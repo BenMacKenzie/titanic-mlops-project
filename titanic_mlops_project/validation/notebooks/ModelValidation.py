@@ -141,6 +141,8 @@ enable_baseline_comparison = enable_baseline_comparison == "true"
 validation_input = dbutils.widgets.get("validation_input")
 assert validation_input
 data = spark.sql(validation_input)
+data = data.toPandas()
+data = data.dropna()
 
 model_type = dbutils.widgets.get("model_type")
 targets = dbutils.widgets.get("targets")
