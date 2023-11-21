@@ -15,7 +15,7 @@ def custom_metrics():
 # TODO(optional) : validation_thresholds
 def validation_thresholds():
     return {
-        "accuracy": MetricThreshold(
+        "accuracy_score": MetricThreshold(
             threshold=0.6,  #
             higher_is_better=True,
         ),
